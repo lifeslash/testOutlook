@@ -15,6 +15,24 @@ Public Class Form1
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
         oContactsFolder = oNS.PickFolder()  'the return is object of MAPIFolder type
 
+        Dim filter As String = "[MessageClass] = ""IPM.Contact"""
+        Dim oContactItems As Outlook.Items
+        oContactItems = oContactsFolder.Items.Restrict(filter)
+
+        For Each oContact As Outlook.ContactItem In oContactItems
+
+            'ContactItemクラス
+            'LastName、FirstName、MiddleName、Title
+            'JobTitle
+            'Email1Address、Email1DisplayName、IMAddress
+            'WebPage
+            'BusinessTelephoneNumber、OtherTelephoneNumber、PagerNumber、MobileTelephoneNumber、BusinessFaxNumber
+
+            Dim item As ListViewItem
+            item.Text = oContact.EmailDisplayName
+            item.Tag = oContact
+            ListBox1.Items.Add(item)
+        Next
     End Sub
 
 End Class
